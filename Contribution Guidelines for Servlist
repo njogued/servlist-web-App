@@ -1,0 +1,31 @@
+Thank you for considering contributing to Servlist! We welcome contributions from the open-source community to improve and enhance our service listing platform. By following these guidelines, you can help make Servelist better for everyone.
+
+How to Contribute
+Fork the Repository: Start by forking the Servelist repository on GitHub.
+
+Clone the Repository: Clone your forked repository to your local machine:
+
+git clone https://github.com/your-username/servlist.git
+Create a Branch: Create a new branch for your contribution:
+
+git checkout -b feature/your-feature-name
+Make Changes: Make the necessary changes and improvements to the codebase.
+
+Test Your Changes: Ensure that your changes are thoroughly tested and do not introduce any new issues.
+
+Commit Your Changes: Commit your changes with a clear and concise commit message:
+
+git commit -m "Add your commit message here"
+Push to Your Fork: Push your changes to your GitHub fork:
+
+git push origin feature/your-feature-name
+Create a Pull Request: Open a pull request (PR) from your branch to the main branch of the original Servelist repository. Be sure to provide a detailed description of your changes in the PR.
+
+Code Style and Guidelines
+Follow the existing code style and conventions used in the project.
+Write clear and concise comments to explain your code, especially if it's complex or not immediately obvious.
+Reporting Issues
+If you encounter any issues or bugs while using Servlist, please report them on our GitHub Issue Tracker. Provide detailed information about the issue and steps to reproduce it.
+
+Code of Conduct
+Please adhere to our Code of Conduct when participating in the Servlist community. Be respectful and considerate of others, and maintain a positive and inclusive atmosphere.
