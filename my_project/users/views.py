@@ -12,10 +12,13 @@ def user_signup(request):
         last_name = request.POST['last_name']
         email = request.POST['email']
         password = request.POST['password']
-        user_name = f"{first_name}{randint(1, 999)}"
         if User.objects.filter(email=email).exists():
             return HttpResponse("User email already exists. Try another email")
         else:
+            while True:
+                user_name = f"{first_name}{randint(1, 999)}"
+                if not User.objects.filter(user_name=user_name).exists():
+                    break
             new_user = User(
                 first_name=first_name,
                 last_name=last_name,
