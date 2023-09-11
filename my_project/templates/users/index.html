@@ -1,24 +1,46 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <form action="" method="post">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" /><br /><br />
-      <label for="first_name">First Name:</label>
-      <input type="first_name" id="first_name" name="first_name" /><br /><br />
-      <label for="last_name">Last Name:</label>
-      <input type="last_name" id="last_name" name="last_name" /><br /><br />
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" /><br /><br />
-      <input type="submit" value="signup" />
-    </form>
-    <script src="index.js"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Listing Website</title>
+    <link rel="stylesheet" href="{% static 'users/styles.css' %}">
+<body>
+    <header>
+        <h1>Welcome to Service Listing</h1>
+        <p>Find the services you need!</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="service">
+            <img src="service1.jpg" alt="Service 1">
+            <h2>Service Name 1</h2>
+            <p>Description of Service 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <a href="#">Learn More</a>
+        </section>
+
+        <section class="service">
+            <img src="service2.jpg" alt="Service 2">
+            <h2>Service Name 2</h2>
+            <p>Description of Service 2. Nulla vitae eros nec nisl convallis commodo ac sed quam.</p>
+            <a href="#">Learn More</a>
+        </section>
+
+        <!-- Add more service sections as needed -->
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Service Listing. All rights reserved.</p>
+    </footer>
+</body>
 </html>
