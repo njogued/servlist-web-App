@@ -6,9 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Sign Up</title>
     <link rel="stylesheet" href="style.css" />
+    <script>
+      window.onload = function () {
+        var passwordInput = document.getElementById("password");
+        var confirmPasswordInput = document.getElementById("confirm_password");
+        var submitButton = document.querySelector("button[type='submit']");
+        submitButton.addEventListener("click", function (event) {
+          if (passwordInput.value !== confirmPasswordInput.value) {
+            event.preventDefault();
+            alert("Password and Confirm Password do not match.");
+          }
+
+          var passwordPattern =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+          if (!passwordPattern.test(passwordInput.value)) {
+            event.preventDefault();
+            alert(
+              "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+            );
+          }
+        });
+      };
+    </script>
   </head>
   <body>
-    <form action="user" method="post">
+    <form action="" method="post">
+      {% csrf_token %}
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" /><br /><br />
       <label for="first_name">First Name:</label>
@@ -17,8 +40,14 @@
       <input type="last_name" id="last_name" name="last_name" /><br /><br />
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" /><br /><br />
-      <input type="submit" value="signup" />
+      <label for="confirm_password">Confirm Password:</label>
+      <input
+        type="password"
+        id="confirm_password"
+        name="confirm_password"
+      /><br /><br />
+      <!-- <input type="submit" value="signup" /> -->
+      <button type="submit">Submit</button>
     </form>
-    <script src="index.js"></script>
   </body>
 </html>
