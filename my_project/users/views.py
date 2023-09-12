@@ -7,17 +7,21 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
+def index(request):
+    return render(request, 'index.html')
+
 def user_signup(request):
     if request.method == "POST":
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
+        user_name = request.POST['user_name']
         email = request.POST['email']
         password = request.POST['password']
         if Uzer.objects.filter(email=email).exists():
             return HttpResponse("User email already exists. Try another email")
         else:
             while True:
-                user_name = f"{first_name}{randint(1, 999)}"
+                user_name = user_name # f"{first_name}{randint(1, 999)}"
                 if not Uzer.objects.filter(username=user_name).exists():
                     break
             new_user = Uzer.objects.create_user(
@@ -39,7 +43,7 @@ def user_login(request):
         user = authenticate(username=user_name, password=password)
         if user:
             login(request, user)
-            return redirect("/")
+            return redirect("/user/home")
         else:
             return redirect("/user/login")
     return render(request, "users/login.html")
