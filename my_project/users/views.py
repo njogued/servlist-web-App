@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 def index(request):
     return render(request, 'index.html')
 
+
 def user_signup(request):
     if request.method == "POST":
         first_name = request.POST['first_name']
@@ -20,10 +21,8 @@ def user_signup(request):
         if Uzer.objects.filter(email=email).exists():
             return HttpResponse("User email already exists. Try another email")
         else:
-            while True:
-                user_name = user_name # f"{first_name}{randint(1, 999)}"
-                if not Uzer.objects.filter(username=user_name).exists():
-                    break
+            if Uzer.objects.filter(username=user_name).exists():
+                return HttpResponse("Username taken")
             new_user = Uzer.objects.create_user(
                 user_name,
                 email,

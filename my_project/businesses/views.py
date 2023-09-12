@@ -1,33 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import CreateBusinessForm
 from .models import Business
-# from django.contrib.auth import models
-# # Create your views here.
-# user = models.User()
+from django.contrib.auth.decorators import login_required
+from users.views import Uzer
 
 
+@login_required(login_url='/user/login')
 def register_business(request):
-    """Function to handle new business registration"""
-    if request.method == 'POST':
-        form = CreateBusinessForm(request.POST)
-        if form.is_valid():
-            business_info = {}
-            fields = ["business_name",
-                      "business_type",
-                      "description",
-                      "location",
-                      "email_contact",
-                      "phone_contact"]
-            for field in fields:
-                business_info[field] = request.POST.get(field)
-            new_business = Business(**business_info)
-            new_business.status = 1
+    if request.method == "POST":
+        business_name = request.POST.get("business_name")
+        business_type = request.POST.get("business_type")
+        description = request.POST.get("description")
+        location = request.POST.get("location")
+        email_contact = request.POST.get("email_contact")
+        phone_contact = request.POST.get("phone_contact")
+        status = 1
+        if Uzer.objects.filter(id=request.user.id).exists():
+            user = Uzer.objects.get(id=request.user.id)
+            print(type(user))
+            print(type(request.user))
+            new_business = Business.objects.create(
+                business_name=business_name,
+                business_type=business_type,
+                description=description,
+                location=location,
+                email_contact=email_contact,
+                phone_contact=phone_contact,
+                status=status,
+                user=user)
             new_business.save()
-        return HttpResponse("New Business Created")
-    context = {}
-    context['form'] = CreateBusinessForm()
-    return render(request, "create.html", context)
+        return redirect('/user/index')
+    return render(request, "create_business.html")
 
 
 def business_profile(request):
