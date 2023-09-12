@@ -14,8 +14,25 @@
       <input type="user_name" id="user_name" name="user_name" /><br /><br />
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" /><br /><br />
+      <input
+        type="checkbox"
+        id="show_password"
+        onclick="togglePasswordVisibility()"
+      />
+      <label for="show_password">Show Password</label><br /><br />
       <input type="submit" value="Log In" />
     </form>
-    <script src="index.js"></script>
+    <script>
+      function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var showPasswordCheckbox = document.getElementById("show_password");
+
+        if (showPasswordCheckbox.checked) {
+          passwordField.type = "text";
+        } else {
+          passwordField.type = "password";
+        }
+      }
+    </script>
   </body>
 </html>

@@ -1,7 +1,10 @@
 from django.db import models
-from users.models import User
+# from users.models import User
+from django.contrib.auth.models import User as Uzer
 
 # Create your models here.
+
+
 class Business(models.Model):
     business_id = models.AutoField(primary_key=True)
     business_name = models.CharField(max_length=100)
@@ -12,7 +15,7 @@ class Business(models.Model):
     phone_contact = models.CharField(max_length=20)
     status = models.IntegerField(choices=((0, "inactive"), (1, "active")))
     date_created = models.DateField(auto_now_add=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Uzer, on_delete=models.CASCADE)
 
     class Meta:
         managed = True
