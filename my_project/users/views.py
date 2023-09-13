@@ -45,7 +45,7 @@ def user_login(request):
             return redirect("/user/home")
         else:
             return redirect("/user/login")
-    return render(request, "users/login.html")
+    return render(request, "users/test_login.html")
 
 
 def user_logout(request):
