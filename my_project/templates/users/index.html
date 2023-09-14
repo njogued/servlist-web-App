@@ -1,29 +1,27 @@
+{% extends 'base.html' %}
 {% load static %}
+{% block content%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Listing Website</title>
     <link rel="stylesheet" href="{% static 'users/styles.css' %}">
+</head>
 <body>
-    <header>
-        <h1>Welcome to Service Listing</h1>
-        <p>Find the services you need!</p>
-    </header>
-
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-
+    <div class="container">
+        <div class="row">
+          <div class="col-12 d-flex align-items-center justify-content-center" style="min-height: 5vh;">
+            <div class="text-center">
+              <h1>Welcome to Servlist</h1>
+              <p>Your go-to website for free traffic</p>
+            </div>
+          </div>
+        </div>
+    </div>
     <main>
         <section class="service">
-            <img src="service1.jpg" alt="Service 1">
+            <img src="https://i.imgur.com/CPGyjLX.jpeg" height: 20px; width: 20px; alt="Service 1">
             <h2>Service Name 1</h2>
             <p>Description of Service 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <a href="#">Learn More</a>
@@ -38,9 +36,6 @@
 
         <!-- Add more service sections as needed -->
     </main>
-
-    <footer>
-        <p>&copy; 2023 Service Listing. All rights reserved.</p>
-    </footer>
 </body>
 </html>
+{% endblock %}
