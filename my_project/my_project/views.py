@@ -1,7 +1,8 @@
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
 
 # @app.route('/')
 
 
 def index(request):
-    return HttpResponse("this is the home page")
+    return render(request, 'index.html')
