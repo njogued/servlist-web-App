@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from users.views import Uzer
 
 
-@login_required(login_url='/user/login')
+@login_required(login_url='/user/login', redirect_field_name='next')
 def register_business(request):
     if request.method == "POST":
         business_name = request.POST.get("business_name")
@@ -17,8 +17,6 @@ def register_business(request):
         status = 1
         if Uzer.objects.filter(id=request.user.id).exists():
             user = Uzer.objects.get(id=request.user.id)
-            print(type(user))
-            print(type(request.user))
             new_business = Business.objects.create(
                 business_name=business_name,
                 business_type=business_type,
@@ -29,7 +27,9 @@ def register_business(request):
                 status=status,
                 user=user)
             new_business.save()
-        return redirect('/user/index')
+        next_url = request.GET.get('next', '/user/home')
+        print(next_url)
+        return redirect(next_url)
     return render(request, "create_business.html")
 
 

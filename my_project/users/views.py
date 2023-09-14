@@ -51,3 +51,11 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('/')
+
+
+def user_profile(request):
+    if request.method == 'PUT':
+        return HttpResponse('Successfully edited')
+    if request.method == 'DELETE':
+        return redirect('/')
+    return render(request, 'user_profile.html')
