@@ -3,10 +3,13 @@ from django.shortcuts import render, redirect
 from random import randint
 from django.contrib.auth.models import User as Uzer
 from .models import User
+from businesses.models import Business
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
+@login_required(login_url='/user/login')
 def index(request):
     return render(request, 'index.html')
 
@@ -42,7 +45,10 @@ def user_login(request):
         user = authenticate(username=user_name, password=password)
         if user:
             login(request, user)
-            return redirect("/user/home")
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            else:
+                return redirect("/user/home")
         else:
             return redirect("/user/login")
     return render(request, "users/login.html")
@@ -53,9 +59,20 @@ def user_logout(request):
     return redirect('/')
 
 
-def user_profile(request):
+@login_required(login_url='/user/login')
+def user_profile(request, user_name):
+    username = request.user.username
     if request.method == 'PUT':
         return HttpResponse('Successfully edited')
     if request.method == 'DELETE':
         return redirect('/')
+    user_id = request.user.id
+    bs_data = Business.objects.filter(user_id=user_id)
+    userbusinesses = list(bs_data)
+    print(userbusinesses[0].__dict__)
+    context = {'owned': userbusinesses}
+    return render(request, 'user_profile.html', context)
+
+
+def my_profile(request):
     return render(request, 'user_profile.html')

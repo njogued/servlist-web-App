@@ -6,6 +6,8 @@ def index(request):
 
 
 def contacts(request):
+    nextval = request.GET.get('next')
+    print(nextval)
     return render(request, "contactus.html")
 
 

@@ -27,9 +27,7 @@ def register_business(request):
                 status=status,
                 user=user)
             new_business.save()
-        next_url = request.GET.get('next', '/user/home')
-        print(next_url)
-        return redirect(next_url)
+        return redirect('/user/login')
     return render(request, "create_business.html")
 
 
