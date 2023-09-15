@@ -59,20 +59,16 @@ def user_logout(request):
     return redirect('/')
 
 
-@login_required(login_url='/user/login')
-def user_profile(request, user_name):
-    username = request.user.username
-    if request.method == 'PUT':
-        return HttpResponse('Successfully edited')
-    if request.method == 'DELETE':
-        return redirect('/')
-    user_id = request.user.id
-    bs_data = Business.objects.filter(user_id=user_id)
-    userbusinesses = list(bs_data)
-    print(userbusinesses[0].__dict__)
-    context = {'owned': userbusinesses}
-    return render(request, 'user_profile.html', context)
-
-
 def my_profile(request):
     return render(request, 'user_profile.html')
+
+
+def user_profile(request, user_name):
+    if user_name == request.user.username:
+        my_profile(user_name)
+    else:
+        user_id = request.user.id
+        bs_data = Business.objects.filter(user_id=user_id)
+        userbusinesses = list(bs_data)
+        context = {'owned': userbusinesses}
+        return render(request, 'user_profile.html', context)
