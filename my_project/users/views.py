@@ -1,6 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from random import randint
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User as Uzer
 from .models import User
 from businesses.models import Business
@@ -59,16 +58,24 @@ def user_logout(request):
     return redirect('/')
 
 
-def my_profile(request):
-    return render(request, 'user_profile.html')
-
-
 def user_profile(request, user_name):
+    # user_obj = get_object_or_404(Uzer, username=user_name)
     if user_name == request.user.username:
-        my_profile(user_name)
-    else:
-        user_id = request.user.id
         bs_data = Business.objects.filter(user_id=user_id)
         userbusinesses = list(bs_data)
         context = {'owned': userbusinesses}
+        context['user_obj'] = user_obj
+        print(context)
         return render(request, 'user_profile.html', context)
+    else:
+        try:
+            user_obj = Uzer.objects.get(username=user_name)
+            user_id = user_obj.id
+            bs_data = Business.objects.filter(user_id=user_id)
+            userbusinesses = list(bs_data)
+            context = {'owned': userbusinesses}
+            context['user_obj'] = user_obj
+            print(context)
+            return render(request, 'user_profile.html', context)
+        except Uzer.DoesNotExist:
+            return HttpResponse("No user with that username")
