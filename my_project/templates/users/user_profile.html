@@ -1,6 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 <!-- Display the user's name -->
+{% if user.username == user_obj.username %}
+<h1>Your businesses</h1>
+{% else %}
 <h1>{{ user_obj.username }}'s profile</h1>
+{% endif %}
 
 <!-- Display owned businesses -->
 <h2>Owned Businesses:</h2>
