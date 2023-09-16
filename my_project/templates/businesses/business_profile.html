@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{{ business.business_name }}</h1>
+
+{% if user.is_authenticated %}
+<h1>Welcome user.username</h1>
+{% else %}
+<h1>Not you</h1>
+{% endif %} {% endblock %}
+<!-- Custom title -->
+{% block customtitle %} Business Details - {% endblock %}

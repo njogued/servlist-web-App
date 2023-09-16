@@ -31,6 +31,16 @@ def register_business(request):
     return render(request, "create_business.html")
 
 
-def business_profile(request):
+def business_profile(request, business_id):
     """Display info about the business"""
-    pass
+    try:
+        business = Business.objects.get(business_id=business_id)
+        context = {'business': business}
+        owner = Uzer.objects.get(id=business.user_id)
+        context['owner'] = owner
+        print(request.user.username)
+        print(context['business'].__dict__)
+        print(context['owner'].__dict__)
+        return render(request, 'business_profile.html', context)
+    except Business.DoesNotExist:
+        return HttpResponse("Business Does Not Exist")
