@@ -74,6 +74,13 @@
                     Contact
                   </button>
                 </li>
+                {% if user.is_authenticated %}
+                <li>
+                  <button type="button" class="btn btn-link px-3 me-2">
+                    View Profile
+                  </button>
+                </li>
+                {% else %}
                 <li>
                   <button type="button" class="btn btn-link px-3 me-2">
                     Login
@@ -84,6 +91,7 @@
                     Sign up
                   </button>
                 </li>
+                {% endif %}
                 <li>
                   <button type="button" class="btn btn-primary me-3">
                     List a Business

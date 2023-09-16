@@ -23,4 +23,4 @@ class Business(models.Model):
         verbose_name_plural = 'Businesses'
 
     def __str__(self):
-        return self.business_name + "by" + self.user_id.first_name
+        return self.business_name

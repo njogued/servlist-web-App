@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Display the user's name -->
+<h1>{{ user_obj.username }}'s profile</h1>
+
+<!-- Display owned businesses -->
+<h2>Owned Businesses:</h2>
+<ul>
+  {% for business in owned %}
+  <li>{{ business.business_name }}</li>
+  {% endfor %}
+</ul>
+{% endblock %} {% block customtitle %} User Profile - {% endblock %}
