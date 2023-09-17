@@ -20,6 +20,8 @@ def user_signup(request):
         user_name = request.POST['user_name']
         email = request.POST['email']
         password = request.POST['password']
+        if user_name in ['login', 'signup', 'home', 'profile', 'logout']:
+            return HttpResponse("Username invalid. Enter another username")
         if Uzer.objects.filter(email=email).exists():
             return HttpResponse("User email already exists. Try another email")
         else:
@@ -60,22 +62,14 @@ def user_logout(request):
 
 def user_profile(request, user_name):
     # user_obj = get_object_or_404(Uzer, username=user_name)
-    if user_name == request.user.username:
+    try:
+        user_obj = Uzer.objects.get(username=user_name)
+        user_id = user_obj.id
         bs_data = Business.objects.filter(user_id=user_id)
         userbusinesses = list(bs_data)
         context = {'owned': userbusinesses}
         context['user_obj'] = user_obj
         print(context)
         return render(request, 'user_profile.html', context)
-    else:
-        try:
-            user_obj = Uzer.objects.get(username=user_name)
-            user_id = user_obj.id
-            bs_data = Business.objects.filter(user_id=user_id)
-            userbusinesses = list(bs_data)
-            context = {'owned': userbusinesses}
-            context['user_obj'] = user_obj
-            print(context)
-            return render(request, 'user_profile.html', context)
-        except Uzer.DoesNotExist:
-            return HttpResponse("No user with that username")
+    except Uzer.DoesNotExist:
+        return HttpResponse("No user with that username")

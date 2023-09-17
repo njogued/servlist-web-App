@@ -65,37 +65,49 @@
             <div class="d-flex align-items-center">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <button type="button" class="btn btn-link px-3 me-2">
-                    Home
-                  </button>
+                  <a href="/">
+                    <button type="button" class="btn btn-link px-3 me-2">
+                      Home
+                    </button>
+                  </a>
                 </li>
                 <li class="nav-item">
-                  <button type="button" class="btn btn-link px-3 me-2">
-                    Contact
-                  </button>
+                  <a href="/contact">
+                    <button type="button" class="btn btn-link px-3 me-2">
+                      Contact
+                    </button>
+                  </a>
                 </li>
                 {% if user.is_authenticated %}
                 <li>
-                  <button type="button" class="btn btn-link px-3 me-2">
-                    View Profile
-                  </button>
+                  <a href="/user/{{ user.username }}">
+                    <button type="button" class="btn btn-link px-3 me-2">
+                      View Profile
+                    </button>
+                  </a>
                 </li>
                 {% else %}
                 <li>
-                  <button type="button" class="btn btn-link px-3 me-2">
-                    Login
-                  </button>
+                  <a href="/user/login">
+                    <button type="button" class="btn btn-link px-3 me-2">
+                      Login
+                    </button>
+                  </a>
                 </li>
                 <li>
-                  <button type="button" class="btn btn-link px-3 me-2">
-                    Sign up
-                  </button>
+                  <a href="/user/signup">
+                    <button type="button" class="btn btn-link px-3 me-2">
+                      Sign up
+                    </button>
+                  </a>
                 </li>
                 {% endif %}
                 <li>
-                  <button type="button" class="btn btn-primary me-3">
-                    List a Business
-                  </button>
+                  <a href="/business/register">
+                    <button type="button" class="btn btn-primary me-3">
+                      List a Business
+                    </button>
+                  </a>
                 </li>
               </ul>
             </div>
