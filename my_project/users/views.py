@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User as Uzer
 from .models import User
@@ -62,6 +62,25 @@ def user_logout(request):
 
 def user_profile(request, user_name):
     # user_obj = get_object_or_404(Uzer, username=user_name)
+    if request.method == "POST":
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        user_obj = Uzer.objects.get(username=user_name)
+        if first_name:
+            user_obj.first_name = first_name
+        if last_name:
+            user_obj.last_name = last_name
+        if email:
+            if Uzer.objects.filter(email=email).exists():
+                return JsonResponse({"error": "User email already exists. Try another email"})
+            user_obj.email = email
+        user_obj.save()
+        return JsonResponse({"message": "Successfuly updated"})
+    if request.method == "DELETE":
+        user_obj = Uzer.objects.get(username=user_name)
+        user_obj.delete()
+        return redirect('/')
     try:
         user_obj = Uzer.objects.get(username=user_name)
         user_id = user_obj.id
@@ -69,7 +88,6 @@ def user_profile(request, user_name):
         userbusinesses = list(bs_data)
         context = {'owned': userbusinesses}
         context['user_obj'] = user_obj
-        print(context)
         return render(request, 'user_profile.html', context)
     except Uzer.DoesNotExist:
-        return HttpResponse("No user with that username")
+        return redirect('/')
