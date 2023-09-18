@@ -103,22 +103,23 @@ main {
     font-size: 16px;
 }
  */
- section {
+ section.business-listing, section.business-consultation, section.business-promotion {
     height: 100vh;
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: rgb(255, 255, 255);
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin-bottom: 30px;
 }
 
 /* Business Listing Section */
 .business-listing {
-    background-image: url('https://i.imgur.com/CPGyjLX.jpeg'); /* Replace with your image URL */
+    background-image: url('https://i.imgur.com/KOp2Boh.jpeg'); /* Replace with your image URL */
 }
 
 .business-listing .content {
@@ -127,7 +128,12 @@ main {
 
 /* Business Promotion Section */
 .business-promotion {
-    background-image: url('https://i.imgur.com/CPGyjLX.jpeg'); /* Replace with your image URL */
+    background-image: url('https://i.imgur.com/STVHvcl.jpeg'); /* Replace with your image URL */
+}
+
+.business-listing a, .business-promotion a, .business-consultation a {
+    padding: 20px 20px;  
+    background-color: #1763ba
 }
 
 .business-promotion .content {
@@ -136,7 +142,7 @@ main {
 
 /* Business Consultation Section */
 .business-consultation {
-    background-image: url('https://i.imgur.com/CPGyjLX.jpeg'); /* Replace with your image URL */
+    background-image: url('https://i.imgur.com/xyQyQtY.jpeg'); /* Replace with your image URL */
 }
 
 .business-consultation .content {
@@ -150,11 +156,12 @@ section:hover {
 }
 
 /* CTA button styling */
+
 a {
     display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007BFF; /* Customize the button color */
+    margin-top: 5px;
+    padding: 0px 0px;
+    background-color: #ffffff; /* Customize the button color */
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -162,7 +169,8 @@ a {
 }
 
 a:hover {
-    background-color: #0056b3; /* Customize the button color on hover */
+    color: white;
+    background-color: rgb(21, 0, 255); /* Customize the button color on hover */
 }
 
 /* Styling for the Contact Us link */

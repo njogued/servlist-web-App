@@ -36,6 +36,8 @@ def user_signup(request):
             )
             new_user.save()
             return redirect("/user/login")
+    if request.user.is_authenticated:
+        return redirect(f"/user/{request.user.username}")
     return render(request, "signup.html")
 
 
@@ -52,7 +54,9 @@ def user_login(request):
                 return redirect("/user/home")
         else:
             return redirect("/user/login")
-    return render(request, "users/login.html")
+    if request.user.is_authenticated:
+        return redirect(f"/user/{request.user.username}")
+    return render(request, "login.html")
 
 
 def user_logout(request):
