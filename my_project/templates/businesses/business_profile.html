@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{{ business.business_name }}</h1>
+
+{% if user.username == owner.username %}
+<h1>You are the owner of this business</h1>
+{% endif %} {% endblock %}
+<!-- Custom title -->
+{% block customtitle %} Business Details - {% endblock %}

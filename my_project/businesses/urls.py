@@ -3,5 +3,5 @@ from .views import register_business, business_profile
 
 urlpatterns = [
     path("register", register_business, name="Register Business"),
-    path("profile", business_profile, name="Business Profile"),
+    path("<int:business_id>", business_profile, name="Business Profile"),
 ]

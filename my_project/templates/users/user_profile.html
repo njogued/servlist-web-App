@@ -1,0 +1,406 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Display the user's info -->
+
+<div class="row px-5 py-3">
+  <div class="col">
+    <div class="card mb-4" style="border-radius: 15px">
+      <div class="card-body text-center">
+        {% if user_obj.img %}
+        <img
+          src="{{ user_obj.img }}"
+          alt="avatar"
+          class="rounded-circle img-fluid"
+          style="width: 150px"
+        />
+        {% else %}
+        <img
+          src="http://getdrawings.com/free-icon-bw/bootstrap-user-icon-20.png"
+          alt="avatar"
+          class="rounded-circle img-fluid"
+          style="width: 150px"
+        />
+        {% endif %}
+        <h5 class="my-3">{{ user_obj.first_name }} {{ user_obj.last_name }}</h5>
+        <p class="mb-1">{{ user_obj.email }}</p>
+        <p class="mb-4">Businesses added: {{ owned|length }}</p>
+        {% if user.username == user_obj.username %}
+        <div class="d-flex justify-content-center mb-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="editButton"
+            data-mdb-toggle="modal"
+            data-mdb-target="#editModal"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-danger ms-1"
+            id="deleteButton"
+            data-mdb-toggle="modal"
+            data-mdb-target="#deleteModal"
+          >
+            Delete
+          </button>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Display owned businesses -->
+{% if owned|length > 0 %}
+<h2 style="font-size: 24px; text-align: center; margin-top: 10px">
+  Businesses added:
+</h2>
+{% for business in owned %}
+
+<div class="row px-5 py-3">
+  <div class="col">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">{{ business.business_name}}</h5>
+        <p class="card-text">{{ business.description }}</p>
+        <p class="card-text">Type: {{ business.business_type }}</p>
+        <p class="card-text">Location: {{ business.location }}</p>
+        <p class="card-text">Email: {{ business.email_contact }}</p>
+        <p class="card-text">Phone: {{ business.phone_contact }}</p>
+        {% if user.username == user_obj.username %}
+        <div class="d-flex justify-content-center mb-2">
+          <button
+            type="button"
+            class="btn btn-primary open-edit-business-modal"
+            id="openEditBusinessModalButton"
+            data-mdb-toggle="modal"
+            data-mdb-target="#editBusinessModal"
+            data-business-id="{{ business.business_id }}"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-danger ms-1 open-delete-business-modal"
+            id="openDeleteBusinessButton"
+            data-mdb-toggle="modal"
+            data-mdb-target="#deleteBusinessModal"
+            data-business-id="{{ business.business_id }}"
+          >
+            Delete
+          </button>
+        </div>
+        {% endif %}
+      </div>
+      <div class="card-footer text-muted">
+        Created: {{ business.date_created }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %} {% endif %}
+
+<div class="modal" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Data</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-mdb-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Your form for editing data goes here -->
+        <!-- For example, you can use a form with input fields -->
+        <form id="editForm">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <div class="form-outline">
+                <input
+                  type="text"
+                  id="first_name"
+                  name="first_name"
+                  class="form-control"
+                />
+                <label class="form-label" for="first_name">First name</label>
+              </div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <div class="form-outline">
+                <input
+                  type="text"
+                  id="last_name"
+                  name="last_name"
+                  class="form-control"
+                />
+                <label class="form-label" for="last_name">Last name</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="email" name="email" class="form-control" />
+            <label class="form-label" for="email">Email address</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-mdb-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" id="saveChanges">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm delete?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-mdb-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this profile? This action cannot be
+        undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="confirmDeleteProfile">
+          Delete
+        </button>
+        <button type="button" class="btn btn-success" data-mdb-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit business modal -->
+<div class="modal" id="editBusinessModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Business Data</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-mdb-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Your form for editing data goes here -->
+        <!-- For example, you can use a form with input fields -->
+        <form id="editBusinessForm">
+          {% csrf_token %}
+          <div class="form-outline mb-4">
+            <input
+              type="text"
+              id="business_name"
+              name="business_name"
+              class="form-control"
+            />
+            <label class="form-label" for="business_name">Business name</label>
+          </div>
+          <div class="form-outline mb-4">
+            <input
+              type="text"
+              id="description"
+              name="description"
+              class="form-control"
+            />
+            <label class="form-label" for="description">Description</label>
+          </div>
+          <div class="form-outline mb-4">
+            <input
+              type="text"
+              id="business_type"
+              name="business_type"
+              class="form-control"
+            />
+            <label class="form-label" for="business_type">Business Type</label>
+          </div>
+          <div class="form-outline mb-4">
+            <input
+              type="text"
+              id="location"
+              name="location"
+              class="form-control"
+            />
+            <label class="form-label" for="location">Location</label>
+          </div>
+          <div class="form-outline mb-4">
+            <input
+              type="text"
+              id="phone_contact"
+              name="phone_contact"
+              class="form-control"
+            />
+            <label class="form-label" for="phone_contact">Phone</label>
+          </div>
+          <div class="form-outline mb-4">
+            <input
+              type="email"
+              id="email_contact"
+              name="email_contact"
+              class="form-control"
+            />
+            <label class="form-label" for="email_contact">Email address</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-mdb-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" id="editBusinessButton">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Business Modal -->
+<div class="modal" id="deleteBusinessModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm delete?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-mdb-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this business? This action cannot be
+        undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="confirmDeleteBusiness">
+          Delete
+        </button>
+        <button type="button" class="btn btn-success" data-mdb-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- Custome title block -->
+{% block customtitle %} {{user_obj.username}}'s User Profile - {% endblock %}
+
+<!-- Custom script -->
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#saveChanges").click(function () {
+      var formData = $("#editForm").serialize(); // Serialize form data
+      $.post(window.location.href, formData, function (data) {
+        // Handle the response from the server if needed
+        if (data.hasOwnProperty("error")) {
+          alert(data.error);
+        } else {
+          // For example, you can close the modal or display a success message
+          $("#editModal").modal("hide");
+          location.reload();
+          alert(data.message);
+        }
+      }).fail(function () {
+        alert("Error occured");
+      });
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    var businessId;
+    $(".open-edit-business-modal").click(function () {
+      var businessId = $(this).data("business-id");
+      $("#editBusinessModal").data("business_id", businessId);
+    });
+    $("#editBusinessButton").click(function () {
+      var businessFormData = $("#editBusinessForm").serialize();
+      var businessId = $("#editBusinessModal").data("business_id");
+      $.post("/business/" + businessId, businessFormData, function (data) {
+        $("#editBusinessModal").modal("hide");
+        alert(data.message);
+        location.reload();
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+<script>
+  $(document).ready(function () {
+    var csrftoken = Cookies.get("csrftoken");
+    $("#confirmDeleteProfile").click(function () {
+      var currentURL = window.location.href;
+      $.ajax({
+        url: currentURL,
+        type: "DELETE",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        },
+        success: function (data) {
+          window.location.href = "/";
+        },
+        error: function (xhr, status, error) {
+          console.error("Error:", error);
+        },
+      });
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    var csrftoken = Cookies.get("csrftoken");
+    var businessId;
+    $(".open-delete-business-modal").click(function () {
+      var businessId = $(this).data("business-id");
+      $("#deleteBusinessModal").data("business_id", businessId);
+    });
+    $("#confirmDeleteBusiness").click(function () {
+      var businessId = $("#deleteBusinessModal").data("business_id");
+      var currentURL = "/business/" + businessId;
+      $.ajax({
+        url: currentURL,
+        type: "DELETE",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        },
+        success: function (data) {
+          location.reload();
+        },
+        error: function (xhr, status, error) {
+          console.error("Error:", error);
+        },
+      });
+    });
+  });
+</script>
+{% endblock %}
