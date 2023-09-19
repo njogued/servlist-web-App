@@ -61,11 +61,11 @@
     <div class="card text-center">
       <div class="card-body">
         <h5 class="card-title">{{ business.business_name}}</h5>
-        <p class="card-text">{{ business.description }}</p>
         <p class="card-text">Type: {{ business.business_type }}</p>
         <p class="card-text">Location: {{ business.location }}</p>
         <p class="card-text">Email: {{ business.email_contact }}</p>
         <p class="card-text">Phone: {{ business.phone_contact }}</p>
+        <p class="card-text">{{ business.description }}</p>
         {% if user.username == user_obj.username %}
         <div class="d-flex justify-content-center mb-2">
           <button

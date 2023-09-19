@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="margin-top: 10px; font: 20px; color: black">Featured Businesses</h1>
+
+{% for business in page_businesses %}
+<div class="business-section">
+<ul>
+    <span class="business-name">{{ business.business_name }}</span> <br></br>
+    <span class="business-type">Category: {{ business.business_type }}</span> <br></br>
+    <p class="business-description">{{ business.description }}</p> <br></br>
+    <span class="business-location"> Location: {{ business.location }}</span> <br></br>
+    <span class="phone-contact"> Phone: {{ business.phone_contact }}</span> <br></br>
+    <span class="email-contact"> Email: {{ business.email_contact }}</span> <br></br>
+    <span class="date-created">{{ business.date_created }}</span> <br></br>
+</ul>
+</div>        
+{% endfor %}
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_businesses.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_businesses.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current-page">
+            Page {{ page_businesses.number }} of {{ page_businesses.paginator.num_pages }}.
+        </span>
+
+        {% if page_businesses.has_next %}
+            <a href="?page={{ page_businesses.next_page_number }}">next</a>
+            <a href="?page={{ page_businesses.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+

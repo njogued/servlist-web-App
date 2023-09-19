@@ -1,9 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Create a Business</title>
+    <style>
+      body {
+          background-color: #007bff;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+
+      form {
+          background-color: #fff;
+          max-width: 400px;
+          margin: 0 auto;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="email"] {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+      }
+
+      input[type="submit"] {
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          cursor: pointer;
+          border-radius: 3px;
+      }
+
+      input[type="submit"]:hover {
+          background-color: #0056b3;
+      }
+  </style>
   </head>
   <body>
     <form action="" method="post">
@@ -13,11 +60,7 @@
       <label for="business_type">Type:</label>
       <input type="text" id="business_type" name="business_type" /><br /><br />
       <label for="business_description">Description</label>
-      <input
-        type="text"
-        id="business_description"
-        name="description"
-      /><br /><br />
+      <textarea id="business_description" name="description" rows="4" cols="50"></textarea><br /><br />
       <label for="location">Location:</label>
       <input type="text" id="location" name="location" /><br /><br />
       <label for="phone_contact">Phone Contact:</label>
@@ -28,3 +71,4 @@
     </form>
   </body>
 </html>
+{% endblock %}

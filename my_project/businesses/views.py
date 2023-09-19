@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import Business
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from users.views import Uzer
 
 
@@ -71,3 +72,15 @@ def business_profile(request, business_id):
         return render(request, 'business_profile.html', context)
     except Business.DoesNotExist:
         return HttpResponse("Business Does Not Exist")
+
+def all_businesses(request):
+    businesses = Business.objects.order_by('date_created')
+    paginator = Paginator(businesses, 5)  
+    page_number = request.GET.get('page')
+    page_businesses = paginator.get_page(page_number)
+
+    businesses = {
+        'page_businesses': page_businesses,  # This variable is passed to the template
+    }
+
+    return render(request, 'all_businesses.html', businesses)
