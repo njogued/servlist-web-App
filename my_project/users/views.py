@@ -80,7 +80,7 @@ def user_profile(request, user_name):
                 return JsonResponse({"error": "User email already exists. Try another email"})
             user_obj.email = email
         user_obj.save()
-        return JsonResponse({"message": "Successfuly updated"})
+        return JsonResponse({"message": "Successfully updated"})
     if request.method == "DELETE":
         user_obj = Uzer.objects.get(username=user_name)
         user_obj.delete()
