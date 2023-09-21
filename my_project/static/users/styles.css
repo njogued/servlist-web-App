@@ -53,7 +53,7 @@ main {
     padding: 20px;
 }
 
- section.business-listing, section.business-consultation, section.business-promotion, section.listed-businesses {
+section.business-listing, section.business-consultation, section.business-promotion, section.listed-businesses {
     height: 100vh;
     background-size: cover;
     background-position: center;
@@ -100,11 +100,20 @@ main {
 }
 
 /* Zoom effect on hover */
-section:hover {
+section.listed-businesses:hover {
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
 
+section.business-promotion:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+section.business-consultation:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
 /* CTA button styling */
 
 a {
@@ -118,9 +127,9 @@ a {
     transition: background-color 0.3s ease;
 }
 
-a:hover {
+.darklinkonhover:hover {
     color: white;
-    background-color: rgb(21, 0, 255); /* Customize the button color on hover */
+    background-color: rgb(30, 9, 188); /* Customize the button color on hover */
 }
 
 /* Styling for the Contact Us link */
@@ -145,19 +154,19 @@ a:hover {
     
 }
 
-form {
+#search-form-home {
     display: flex;
     margin-top: 10px;
 }
 
-input[type="text"] {
+#search-input {
     flex: 1;
     padding: 8px;
     border: none;
     border-radius: 4px 0 0 4px;
 }
 
-button[type="submit"] {
+#GoButton {
     background-color: #007BFF;
     color: white;
     border: none;
@@ -166,7 +175,7 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-button[type="submit"]:hover {
+#GoButton:hover {
     background-color: #0056b3;
 }
 
