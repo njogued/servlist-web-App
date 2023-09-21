@@ -1,11 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content%}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'users/styles.css' %}" />
-  </head>
+{% extends 'base.html' %} {% block content%}
   <body>
     <div class="container">
       <div class="row">
@@ -20,37 +13,31 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="sidebar text-right">
-            <form>
+            <form id="search-form-home">
               <input
                 type="text"
                 id="search-input"
                 placeholder="Search Business..."
               />
-              <button type="submit">Go</button>
+              <button id="GoButton" type="submit">Go</button>
             </form>
           </div>
         </div>
       </div>
     </div>
-    <script>
-      document
-        .getElementById("search-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault(); // Prevent the default form submission
-
-          // Get the search query from the input field
-          const searchQuery = document.getElementById("search-input").value;
-
-          // You can replace this with your actual search functionality or redirect to a search results page
-          alert("Performing search for: " + searchQuery);
-        });
-    </script>
     <main>
+      <section class="listed-businesses">
+        <div class="content">
+          <h2>Featured Businesses</h2>
+          <p>Explore New businesses</p>
+          <a class="darklinkonhover" href="/business/businesses">List Now</a>
+        </div>
+      </section>
       <section class="business-listing">
         <div class="content">
           <h2>Business Listing</h2>
-          <p>Discover and list your business today.</p>
-          <a href="#">Learn More</a>
+          <p>Reach a wider audience.</p>
+          <a class="darklinkonhover" href="/user/register">List Now</a>
         </div>
       </section>
 
@@ -59,7 +46,9 @@
         <div class="content">
           <h2>Business Promotion</h2>
           <p>Boost your business with our promotion services.</p>
-          <a href="#">Learn More</a>
+          <a class="darklinkonhover" href="mailto:franblog7@gmail.com"
+            >Learn More</a
+          >
         </div>
       </section>
 
@@ -67,52 +56,31 @@
       <section class="business-consultation">
         <div class="content">
           <h2>Business Consultation</h2>
-          <p>
-            Get expert advice for your business.
-            <a href="mailto:franblog7@gmail.com">Contact Us</a>
-          </p>
+          <p>Get expert advice for your business.</p>
+          <a class="darklinkonhover" href="mailto:franblog7@gmail.com"
+            >Contact Us</a
+          >
         </div>
       </section>
-      {% comment %}
-      <section class="service">
-        <img src="https://i.imgur.com/CPGyjLX.jpeg" alt="Service 1" />
-        <div class="service-details">
-          <h2>Business Listing</h2>
-          <p>
-            Description of Service 1. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit.
-          </p>
-          <a href="#">Learn More</a>
-        </div>
-      </section>
-
-      <section class="service2">
-        <div class="service-details2">
-          <h2>Business promotion</h2>
-          <p>
-            Description of Service 1. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit.
-          </p>
-          <a href="#">Learn More</a>
-        </div>
-        <img src="https://i.imgur.com/CPGyjLX.jpeg" alt="Service 1" />
-      </section>
-
-      <section class="service">
-        <img src="https://i.imgur.com/CPGyjLX.jpeg" alt="Service 1" />
-        <div class="service-details">
-          <h2>Business promotion</h2>
-          <p>
-            Description of Service 1. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit.
-          </p>
-          <a href="#">Learn More</a>
-        </div>
-      </section>
-      {% endcomment %}
 
       <!-- Add more service sections as needed -->
     </main>
   </body>
 </html>
+{% endblock %} {% block customtitle %} User Home - {% endblock %}
+<!-- New scripts -->
+{% block scripts %}
+<script>
+  document
+    .getElementById("search-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevent the default form submission
+
+      // Get the search query from the input field
+      const searchQuery = document.getElementById("search-input").value;
+
+      // You can replace this with your actual search functionality or redirect to a search results page
+      alert("Performing search for: " + searchQuery);
+    });
+</script>
 {% endblock %}

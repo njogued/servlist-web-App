@@ -21,12 +21,13 @@ def user_signup(request):
         email = request.POST['email']
         password = request.POST['password']
         if user_name in ['login', 'signup', 'home', 'profile', 'logout']:
-            return HttpResponse("Username invalid. Enter another username")
+            return render(request, "signup.html", {'error_message': 'Invalid username'})
         if Uzer.objects.filter(email=email).exists():
-            return HttpResponse("User email already exists. Try another email")
+            return render(request, "signup.html", {'error_message': 'User email taken'})
         else:
             if Uzer.objects.filter(username=user_name).exists():
-                return HttpResponse("Username taken")
+                return render(request, "signup.html", {
+                    'error_message': 'Username taken. Try another username'})
             new_user = Uzer.objects.create_user(
                 user_name,
                 email,
@@ -53,7 +54,7 @@ def user_login(request):
             else:
                 return redirect("/user/home")
         else:
-            return redirect("/user/login")
+            return render(request, "login.html", {'error_message': 'Wrong username or password. Try again'})
     if request.user.is_authenticated:
         return redirect(f"/user/{request.user.username}")
     return render(request, "login.html")

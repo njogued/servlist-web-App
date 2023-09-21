@@ -74,6 +74,11 @@
 
         <div class="card bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
+            {% if error_message %}
+            <p class="p-3 mb-3 bg-info text-warning">
+              Error: {{ error_message }}
+            </p>
+            {% endif %}
             <form action="" method="post">
               {% csrf_token %}
 
