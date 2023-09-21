@@ -84,3 +84,18 @@ def all_businesses(request):
     }
 
     return render(request, 'all_businesses.html', businesses)
+
+def search_results(request):
+    """Display search results"""
+    if request.method == "POST":
+        search_keyword = request.POST.get("search_keyword")
+        businesses = Business.objects.filter(business_type__icontains=search_keyword)
+        paginator = Paginator(businesses, 5)  
+        page_number = request.GET.get('page')
+        page_businesses = paginator.get_page(page_number)
+
+        businesses = {
+            'page_businesses': page_businesses,  # This variable is passed to the template
+        }
+        return render(request, 'all_businesses.html', businesses)
+    return redirect("/user/home")

@@ -12,10 +12,12 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="sidebar text-right">
-            <form id="search-form-home">
+            <form id="search-form-home" method="POST" action="business/search/">
+              {% csrf_token %}
               <input
                 type="text"
                 id="search-input"
+                name="search_keyword"
                 placeholder="Search Business..."
               />
               <button id="GoButton" type="submit">Go</button>
