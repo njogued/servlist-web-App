@@ -162,6 +162,7 @@ class TestViews(TestCase):
         inaccessible unless logged in"""
         response = self.client.get(self.new_business_url)
         self.assertEquals(response.status_code, 302)
+        self.assertEquals(response.url, '/user/login?next=/business/register')
 
     def test_business_registration_GET_logged_in(self):
         """Test whether the business registration site is available"""
