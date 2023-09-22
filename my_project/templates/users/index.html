@@ -7,16 +7,17 @@
           style="min-height: 5vh"
         >
           <div class="text-center">
-            <h1>Welcome to Servlist</h1>
-            <p>Your go-to website for free traffic</p>
+            <h1 style="text-align: left; font-size: 24px; margin-left: 5px;">Welcome to Servlist</h1>
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="sidebar text-right">
-            <form id="search-form-home">
+            <form id="search-form-home" method="POST" action="business/search/">
+              {% csrf_token %}
               <input
                 type="text"
                 id="search-input"
+                name="search_keyword"
                 placeholder="Search Business..."
               />
               <button id="GoButton" type="submit">Go</button>
@@ -26,38 +27,32 @@
       </div>
     </div>
     <main>
+      <h2 style='font-size: 36px; font-color: black; text-align: center; font-weight: bold;'>Featured Businesses</h2>
       <section class="listed-businesses">
         <div class="content">
-          <h2>Featured Businesses</h2>
-          <p>Explore New businesses</p>
-          <a class="darklinkonhover" href="/business/businesses">List Now</a>
+          <a class="darklinkonhover" href="/business/businesses">Browse Businesses</a>
         </div>
       </section>
+      <p style='font-size: 36px; font-color: black; text-align: center; font-weight: bold;'>Own a Business? List for Free Now!</p>
       <section class="business-listing">
         <div class="content">
-          <h2>Business Listing</h2>
-          <p>Reach a wider audience.</p>
-          <a class="darklinkonhover" href="/user/register">List Now</a>
+          <a class="darklinkonhover" href="/user/register">List New Business Now</a>
         </div>
       </section>
-
+      <p style='font-size: 36px; font-color: black; text-align: center; font-weight: bold; margin-bottom: 20px;'>Promote Your Business</p>
       <!-- Business Promotion Section -->
       <section class="business-promotion">
         <div class="content">
-          <h2>Business Promotion</h2>
-          <p>Boost your business with our promotion services.</p>
-          <a class="darklinkonhover" href="mailto:franblog7@gmail.com"
-            >Learn More</a
+          <a class="darklinkonhover" href="/contact"
+            >Start Promotion Here</a
           >
         </div>
       </section>
-
+      <p style='font-size: 36px; font-color: black; text-align: center; font-weight: bold;'>Need Help? Reach Out To Us</p>
       <!-- Business Consultation Section -->
       <section class="business-consultation">
         <div class="content">
-          <h2>Business Consultation</h2>
-          <p>Get expert advice for your business.</p>
-          <a class="darklinkonhover" href="mailto:franblog7@gmail.com"
+          <a class="darklinkonhover" href="/contact"
             >Contact Us</a
           >
         </div>

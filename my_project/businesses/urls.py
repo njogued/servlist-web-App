@@ -6,4 +6,5 @@ urlpatterns = [
     path("register", register_business, name="Register Business"),
     path("<int:business_id>", business_profile, name="Business Profile"),
     path('businesses/', views.all_businesses, name='All Businesses'),
+    path('search/', views.search_results, name='search_results'),
 ]
