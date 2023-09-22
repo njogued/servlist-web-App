@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-c$1*ykirz$=xy#&ezz+m11bw=nmbx)1m^gz2or-^w)6si(hx7^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'my_project.urls'
@@ -121,12 +122,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Add these new lines
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'static/users'),
-    os.path.join(BASE_DIR, 'static/businesses'),
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -136,4 +137,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# WhiteNoise settings
+WHITENOISE_ALLOW_ALL_ORIGINS = True  # Adjust as needed for CORS
+WHITENOISE_MAX_AGE = 31536000  # Set caching time for static files (optional)
+# Set the location of your static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
