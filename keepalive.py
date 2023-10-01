@@ -7,4 +7,4 @@ while True:
         print("ping")
     else:
         print("Error code:", response.status_code)
-    time.sleep(10)
+    time.sleep(600)
